@@ -1,8 +1,9 @@
-" Set just to be safe: do not make Vim more Vi-compatible
+" Activate built-in plugins
 set nocompatible
-
-" Loads useful filetype plugins when filetype matches
 filetype plugin on
+
+" Enables syntax
+syntax enable
 
 " Enhances functionality of tag matching
 runtime macros/matchit.vim
@@ -28,6 +29,9 @@ set ruler
 " Status line for each window: show file
 set laststatus=2
 
+" Show partial command
+set showcmd
+
 " Case insensitive search
 set ignorecase
 
@@ -45,3 +49,26 @@ nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
 
 " Disable automatic .swp files
 set noswapfile
+
+" Search recursively into subfolders
+set path+=**
+
+" Ignore some dirs
+set wildignore+=*/deps/*
+set wildignore+=*/node_modules/*
+set wildignore+=*/_build/*
+
+" Disable banner
+let g:netrw_banner = 0
+
+" Make 25% of screen width
+let g:netrw_winsize = 25
+
+" Tree view
+let g:netrw_liststyle = 3
+
+" Open in previous window
+let g:netrw_browse_split = 4
+
+" Open splits to the right
+let g:netrw_altv = 1
