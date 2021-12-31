@@ -2,6 +2,12 @@
 set nocompatible
 filetype plugin on
 
+call plug#begin()
+Plug 'elixir-editors/vim-elixir'
+Plug 'tpope/vim-endwise'
+Plug 'sainnhe/sonokai'
+call plug#end()
+
 " Enables syntax
 syntax enable
 
@@ -72,3 +78,16 @@ let g:netrw_browse_split = 4
 
 " Open splits to the right
 let g:netrw_altv = 1
+
+" Enables filetype detection, loads ftplugin, and loads indent
+filetype plugin indent on
+
+if has('termguicolors')
+  set termguicolors
+endif
+
+" Needed for italics
+let &t_ZH="\e[3m"
+let &t_ZR="\e[23m"
+
+colorscheme sonokai
