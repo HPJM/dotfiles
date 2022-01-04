@@ -64,6 +64,9 @@ set wildignore+=*/deps/*
 set wildignore+=*/node_modules/*
 set wildignore+=*/_build/*
 
+" Allow hidden buffers
+set hidden
+
 " Disable banner
 let g:netrw_banner = 0
 
