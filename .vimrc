@@ -6,6 +6,8 @@ call plug#begin()
 Plug 'elixir-editors/vim-elixir'
 Plug 'tpope/vim-endwise'
 Plug 'sainnhe/sonokai'
+Plug '~/.fzf'
+Plug 'junegunn/fzf.vim'
 call plug#end()
 
 " Enables syntax
@@ -91,3 +93,14 @@ let &t_ZH="\e[3m"
 let &t_ZR="\e[23m"
 
 colorscheme sonokai
+
+" Open FZF file finder
+nnoremap <silent> <C-p> :FZF -m<CR>
+
+" Create/redefine custom command Rg
+" Pass 0+ args to rg
+" Escape special chars, with column numbers, enable previewer, not fullscreen
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
