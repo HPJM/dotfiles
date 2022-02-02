@@ -107,3 +107,5 @@ command! -bang -nargs=* Rg
 
 " Use ripgrep for file finding
 let $FZF_DEFAULT_COMMAND = 'rg --files'
+
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
