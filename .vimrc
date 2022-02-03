@@ -109,3 +109,6 @@ command! -bang -nargs=* Rg
 let $FZF_DEFAULT_COMMAND = 'rg --files'
 
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
+
+" Use new RE engine
+set re=0
