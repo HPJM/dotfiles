@@ -8,6 +8,8 @@ Plug 'tpope/vim-endwise'
 Plug 'sainnhe/sonokai'
 Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'yuezk/vim-js'
+Plug 'maxmellon/vim-jsx-pretty'
 call plug#end()
 
 " Enables syntax
