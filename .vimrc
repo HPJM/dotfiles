@@ -10,6 +10,9 @@ Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'yuezk/vim-js'
 Plug 'maxmellon/vim-jsx-pretty'
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'yarn install --frozen-lockfile --production',
+  \ 'for': ['javascript', 'typescript', 'css', 'json', 'markdown', 'yaml', 'html'] }
 call plug#end()
 
 " Enables syntax
@@ -114,3 +117,6 @@ cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
 " Use new RE engine
 set re=0
+
+let g:prettier#autoformat = 1
+let g:prettier#autoformat_require_pragma = 0
