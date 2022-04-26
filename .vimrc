@@ -120,3 +120,11 @@ set re=0
 
 let g:prettier#autoformat = 1
 let g:prettier#autoformat_require_pragma = 0
+
+inoremap " ""<left>
+inoremap ' ''<left>
+inoremap ( ()<left>
+inoremap [ []<left>
+inoremap { {}<left>
+inoremap {<CR> {<CR>}<ESC>O
+inoremap {;<CR> {<CR>};<ESC>O
