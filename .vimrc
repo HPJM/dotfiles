@@ -1,6 +1,8 @@
 " Activate built-in plugins
 set nocompatible
-filetype plugin on
+
+" Enables filetype detection, loads ftplugin, and loads indent
+filetype plugin indent on
 
 call plug#begin()
 Plug 'elixir-editors/vim-elixir'
@@ -16,7 +18,7 @@ Plug 'prettier/vim-prettier', {
 call plug#end()
 
 " Enables syntax
-syntax enable
+syntax on
 
 " Enhances functionality of tag matching
 runtime macros/matchit.vim
@@ -82,13 +84,6 @@ let g:netrw_liststyle = 3
 
 " Open splits to the right
 let g:netrw_altv = 1
-
-" Enables filetype detection, loads ftplugin, and loads indent
-filetype plugin indent on
-
-if has('termguicolors')
-  set termguicolors
-endif
 
 " Needed for italics
 let &t_ZH="\e[3m"
