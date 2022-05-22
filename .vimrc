@@ -141,33 +141,62 @@ inoremap jj <Esc>
 " Clear search highlight from hlsearch
 nnoremap <leader><space> :<C-u>nohlsearch<CR><C-l>
 
-" Close pairs
+" Close pairs: but allow override with backspace and skip over closing pair with tab
+inoremap "<backspace> "
 inoremap " ""<left>
+inoremap "<Tab> ""
+
+inoremap '<backspace> '
 inoremap ' ''<left>
+inoremap '<Tab> ''
+
+inoremap `<backspace> `
 inoremap ` ``<left>
+inoremap `<Tab> ``
+
+inoremap (<backspace> (
 inoremap ( ()<left>
+inoremap (<Tab> ()
+
+inoremap [<backspace> [
 inoremap [ []<left>
+inoremap [<Tab> []
+
+inoremap {<backspace> {
 inoremap { {}<left>
+inoremap {<Tab> {}
+
+" Don't auto-close as useful for HTML etc
+inoremap <<Tab> <>
+
 inoremap (<CR> (<CR>)<Esc>O
 inoremap [<CR> [<CR>]<Esc>O
 inoremap {<CR> {<CR>}<Esc>O
 inoremap {;<CR> {<CR>};<Esc>O
 
 " Auto-insert closing JSX/html tag and put cursor in between
-inoremap ><CR> ><Esc>mmF<lyt>o</<C-r>"><Esc>O
-inoremap ><Tab> ><Esc>mmF<lyt>f>a</<C-r>"><Esc>F<i
+inoremap <expr> ><Tab> (getline('.') =~ ' ' ? '><Esc>mmF<l"tyt<space>A</<C-r>t><Esc>F>a' : '><Esc>mmF<l"tyt>A</<C-r>t><Esc>F>a')
+
+inoremap <expr> ><CR> (getline('.') =~ ' ' ? '><Esc>mmF<l"tyt<space>o</<C-r>t><Esc>O' : '><Esc>mmF<l"tyt>o</<C-r>t><Esc>O')
 
 " JS + React shortcuts
-autocmd FileType javascript,jsx inoremap im<Tab> import  <Esc>mmi from ""<Esc>i
-autocmd FileType javascript,jsx inoremap fu<Tab> function (<Esc>maa) {<CR><Tab><Esc>mmi<CR>}<Esc>`ai
-autocmd FileType javascript,jsx inoremap if<Tab> if ()<Esc>maa {<CR><Tab><Esc>mmi<CR>}<Esc>`ai
-autocmd FileType javascript,jsx inoremap =><Tab> ()<Esc>mma =><space>
-autocmd FileType javascript,jsx inoremap ex<Tab> export default<space>
-autocmd FileType javascript,jsx inoremap us<Tab> const []<Esc>mma = useState()<Esc>i
-autocmd FileType javascript,jsx inoremap ue<Tab> useEffect(() => {<CR><Tab><Esc>mmi<CR>}, [])<Esc>hi
+autocmd FileType javascript,jsx inoremap im<Tab> import<space><space><Esc>mmi<space>from<space>""<Esc>i
+autocmd FileType javascript,jsx inoremap fu<Tab> function<space>(<Esc>maa)<space>{<CR><Tab><Esc>mmi<CR>}<Esc>`ai
+autocmd FileType javascript,jsx inoremap if<Tab> if<space>()<Esc>maa<space>{<CR><Tab><Esc>mmi<CR>}<Esc>`ai
+autocmd FileType javascript,jsx inoremap ife<Tab> if<space>()<Esc>maa<space>{<CR><Tab><Esc>mmi<CR>}<space>else<space>{<CR><Tab><Esc>mei<CR>}<Esc>`ai
+autocmd FileType javascript,jsx inoremap try<Tab> try<space>{<CR><Tab><Esc>mmi<CR>}<space>catch<space>(e)<space>{<CR><Tab><Esc>mci<CR>}<Esc>`mi
+autocmd FileType javascript,jsx inoremap =><Tab> ()<Esc>mma<space>=><space>
+autocmd FileType javascript,jsx inoremap ex<Tab> export<space>default<space>
+autocmd FileType javascript,jsx inoremap us<Tab> const<space>[]<Esc>mma<space>=<space>useState()<Esc>i
+autocmd FileType javascript,jsx inoremap ue<Tab> useEffect(()<space>=><space>{<CR><Tab><Esc>mmi<CR>},<space>[])<Esc>hi
 
 " Elixir shortcuts
-autocmd FileType elixir         inoremap fn<Tab> fn <Esc>mma-> end<Esc>F>a<space>
-autocmd FileType elixir         inoremap def<Tab> def do<Esc>o<CR>end<Esc>2k^ea<space>
-autocmd FileType elixir         inoremap defp<Tab> defp do<Esc>o<CR>end<Esc>2k^ea<space>
-autocmd FileType elixir         inoremap defm<Tab> defmodule do<Esc>o<CR>end<Esc>2k^ea<space>
+autocmd FileType elixir         inoremap fn<Tab> fn<space><space><Esc>maa-><space>end<Esc>F>a<space>
+autocmd FileType elixir         inoremap fn<CR> fn<space><space><Esc>maa-><CR><Esc>mmi<CR>end<Esc>`mi<Tab><Tab>
+autocmd FileType elixir         inoremap def<Tab> def<space><space><Esc>mni<space>do<CR><Esc>mmi<CR>end<Esc>`ni
+autocmd FileType elixir         inoremap defp<Tab> defp<space><space><Esc>mni<space>do<CR><Esc>mmi<CR>end<Esc>`ni
+autocmd FileType elixir         inoremap defm<Tab> defmodule<space><space><Esc>mni<space>do<CR><Esc>mmi<CR>end<Esc>`ni
+autocmd FileType elixir         inoremap doc<Tab> @doc<space>"""<CR><Esc>mdi<CR>"""<Esc>`di<Tab>
+autocmd FileType elixir         inoremap mdoc<Tab> @moduledoc<space>"""<CR><Esc>mdi<CR>"""<Esc>`di<Tab>
+autocmd FileType elixir         inoremap des<Tab> describe<space>""<Esc>mmA<space>do<CR><CR>end<Esc>`mi
+autocmd FileType elixir         inoremap te<Tab> test<space>""<Esc>mmA<space>do<CR><CR>end<Esc>`mi
