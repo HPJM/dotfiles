@@ -62,6 +62,9 @@ set incsearch
 " Disable automatic .swp files
 set noswapfile
 
+" Normal backspace behaviour
+set backspace=indent,eol,start
+
 " Search recursively into subfolders
 set path+=**
 
@@ -121,6 +124,9 @@ let mapleader = " "
 " Shorter wait for mappings to apply
 set timeoutlen=500
 
+" Make Y behave better
+map Y y$
+
 " Insert blank lines
 nnoremap oo m`o<Esc>``
 nnoremap OO m`O<Esc>``
@@ -170,9 +176,9 @@ inoremap {<CR> {<CR>}<Esc>O
 inoremap {;<CR> {<CR>};<Esc>O
 
 " Auto-insert closing JSX/html tag and put cursor in between
-inoremap <expr> ><Tab> (getline('.') =~ ' ' ? '><Esc>mmF<l"tyt<space>A</<C-r>t><Esc>F>a' : '><Esc>mmF<l"tyt>A</<C-r>t><Esc>F>a')
+inoremap <expr> ><Tab> (getline('.') =~ '=' ? '><Esc>mmF<l"tyt<space>A</<C-r>t><Esc>F>a' : '><Esc>mmF<l"tyt>A</<C-r>t><Esc>F>a')
 
-inoremap <expr> ><CR> (getline('.') =~ ' ' ? '><Esc>mmF<l"tyt<space>o</<C-r>t><Esc>O' : '><Esc>mmF<l"tyt>o</<C-r>t><Esc>O')
+inoremap <expr> ><CR> (getline('.') =~ '=' ? '><Esc>mmF<l"tyt<space>o</<C-r>t><Esc>O' : '><Esc>mmF<l"tyt>o</<C-r>t><Esc>O')
 
 " JS + React shortcuts
 autocmd FileType javascript,jsx inoremap im<Tab> import<space><space><Esc>mmi<space>from<space>""<Esc>i
@@ -191,7 +197,7 @@ autocmd FileType elixir         inoremap fn<CR> fn<space><space><Esc>maa-><CR><E
 autocmd FileType elixir         inoremap def<Tab> def<space><space><Esc>mni<space>do<CR><Esc>mmi<CR>end<Esc>`ni
 autocmd FileType elixir         inoremap defp<Tab> defp<space><space><Esc>mni<space>do<CR><Esc>mmi<CR>end<Esc>`ni
 autocmd FileType elixir         inoremap defm<Tab> defmodule<space><space><Esc>mni<space>do<CR><Esc>mmi<CR>end<Esc>`ni
-autocmd FileType elixir         inoremap doc<Tab> @doc<space>"""<CR><Esc>mdi<CR>"""<Esc>`di<Tab>
+autocmd FileType elixir         inoremap doc<Tab> @doc<space>"""<CR><Esc>mdi<CR>"""<Esc>`di
 autocmd FileType elixir         inoremap mdoc<Tab> @moduledoc<space>"""<CR><Esc>mdi<CR>"""<Esc>`di<Tab>
 autocmd FileType elixir         inoremap des<Tab> describe<space>""<Esc>mmA<space>do<CR><CR>end<Esc>`mi
 autocmd FileType elixir         inoremap te<Tab> test<space>""<Esc>mmA<space>do<CR><CR>end<Esc>`mi
