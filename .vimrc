@@ -12,10 +12,6 @@ Plug 'sainnhe/sonokai'
 Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'yuezk/vim-js'
-Plug 'maxmellon/vim-jsx-pretty'
-Plug 'prettier/vim-prettier', {
-  \ 'do': 'yarn install --frozen-lockfile --production',
-  \ 'for': ['javascript', 'typescript', 'css', 'json', 'markdown', 'yaml', 'html'] }
 call plug#end()
 
 " Enables syntax
