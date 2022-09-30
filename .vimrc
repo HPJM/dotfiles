@@ -7,6 +7,7 @@ filetype plugin indent on
 call plug#begin()
 Plug 'elixir-editors/vim-elixir'
 Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-commentary'
 Plug 'sainnhe/sonokai'
 Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'
@@ -114,10 +115,6 @@ cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 " Use new RE engine
 set re=0
 
-" Prettier: format on save
-let g:prettier#autoformat = 1
-let g:prettier#autoformat_require_pragma = 0
-
 " Re-map leader to space
 let mapleader = " "
 
@@ -125,22 +122,20 @@ let mapleader = " "
 set timeoutlen=500
 
 " Make Y behave better
-map Y y$
+nnoremap Y y$
 
 " Insert blank lines
 nnoremap oo m`o<Esc>``
 nnoremap OO m`O<Esc>``
 
-inoremap aa <Esc>A
-
 " Prev buffer
-nnoremap <leader>b :<C-u>b#<CR>
+nnoremap <leader><space> :<C-u>b#<CR>
 
 " Easier escape
 inoremap jj <Esc>
 
 " Clear search highlight from hlsearch
-nnoremap <leader><space> :<C-u>nohlsearch<CR><C-l>
+nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
 
 " Close pairs: but allow override with backspace and skip over closing pair with tab
 inoremap "<backspace> "
@@ -179,6 +174,9 @@ inoremap {;<CR> {<CR>};<Esc>O
 inoremap <expr> ><Tab> (getline('.') =~ '=' ? '><Esc>mmF<l"tyt<space>A</<C-r>t><Esc>F>a' : '><Esc>mmF<l"tyt>A</<C-r>t><Esc>F>a')
 
 inoremap <expr> ><CR> (getline('.') =~ '=' ? '><Esc>mmF<l"tyt<space>o</<C-r>t><Esc>O' : '><Esc>mmF<l"tyt>o</<C-r>t><Esc>O')
+
+" Copy file path
+nnoremap <leader>c :let @+ = expand("%")<cr>
 
 " JS + React shortcuts
 autocmd FileType javascript,jsx inoremap im<Tab> import<space><space><Esc>mmi<space>from<space>""<Esc>i
