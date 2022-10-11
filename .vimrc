@@ -34,6 +34,7 @@ set history=1000
 
 " Show line numbers
 set number
+set relativenumber
 
 " Show row and column numbers
 set ruler
@@ -173,6 +174,11 @@ inoremap <expr> ><CR> (getline('.') =~ '=' ? '><Esc>mmF<l"tyt<space>o</<C-r>t><E
 
 " Copy file path
 nnoremap <leader>c :let @+ = expand("%")<cr>
+
+" Open this file in split window
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+
+nnoremap <leader>sv :source $MYVIMRC<cr>
 
 " JS + React shortcuts
 autocmd FileType javascript,jsx inoremap im<Tab> import<space><space><Esc>mmi<space>from<space>""<Esc>i
