@@ -8,6 +8,7 @@ call plug#begin()
 Plug 'elixir-editors/vim-elixir'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
 Plug 'sainnhe/sonokai'
 Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'
@@ -24,7 +25,17 @@ runtime macros/matchit.vim
 set wildmenu
 
 " Use spaces instead of tabs
-set expandtab tabstop=2 softtabstop=2 shiftwidth=2
+set expandtab
+
+" Set tab width to two spaces
+set tabstop=2
+
+" Fixes backspace key: when backspacing remove two spaces at a time
+" Ensures similar behaviour to tabstop
+set softtabstop=2
+
+" For normal mode indentation
+set shiftwidth=2
 
 " Smarter indentation
 set autoindent
@@ -134,6 +145,14 @@ inoremap jj <Esc>
 " Clear search highlight from hlsearch
 nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
 
+" Copy file path
+nnoremap <leader>c :let @+ = expand("%")<cr>
+
+" Open this file in split window
+nnoremap <leader>ev :split $MYVIMRC<cr>
+
+nnoremap <leader>sv :source $MYVIMRC<cr>
+
 " Close pairs: but allow override with backspace and skip over closing pair with tab
 inoremap "<backspace> "
 inoremap " ""<left>
@@ -172,32 +191,39 @@ inoremap <expr> ><Tab> (getline('.') =~ '=' ? '><Esc>mmF<l"tyt<space>A</<C-r>t><
 
 inoremap <expr> ><CR> (getline('.') =~ '=' ? '><Esc>mmF<l"tyt<space>o</<C-r>t><Esc>O' : '><Esc>mmF<l"tyt>o</<C-r>t><Esc>O')
 
-" Copy file path
-nnoremap <leader>c :let @+ = expand("%")<cr>
-
-" Open this file in split window
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>
-
-nnoremap <leader>sv :source $MYVIMRC<cr>
-
-" JS + React shortcuts
-autocmd FileType javascript,jsx inoremap im<Tab> import<space><space><Esc>mmi<space>from<space>""<Esc>i
-autocmd FileType javascript,jsx inoremap fu<Tab> function<space>(<Esc>maa)<space>{<CR><Tab><Esc>mmi<CR>}<Esc>`ai
-autocmd FileType javascript,jsx inoremap if<Tab> if<space>()<Esc>maa<space>{<CR><Tab><Esc>mmi<CR>}<Esc>`ai
-autocmd FileType javascript,jsx inoremap ife<Tab> if<space>()<Esc>maa<space>{<CR><Tab><Esc>mmi<CR>}<space>else<space>{<CR><Tab><Esc>mei<CR>}<Esc>`ai
-autocmd FileType javascript,jsx inoremap try<Tab> try<space>{<CR><Tab><Esc>mmi<CR>}<space>catch<space>(e)<space>{<CR><Tab><Esc>mci<CR>}<Esc>`mi
-autocmd FileType javascript,jsx inoremap =><Tab> ()<Esc>mma<space>=><space>
-autocmd FileType javascript,jsx inoremap ex<Tab> export<space>default<space>
-autocmd FileType javascript,jsx inoremap us<Tab> const<space>[]<Esc>mma<space>=<space>useState()<Esc>i
-autocmd FileType javascript,jsx inoremap ue<Tab> useEffect(()<space>=><space>{<CR><Tab><Esc>mmi<CR>},<space>[])<Esc>hi
+func Eatchar(pat)
+   let c = nr2char(getchar(0))
+   return (c =~ a:pat) ? '' : c
+endfunc
 
 " Elixir shortcuts
-autocmd FileType elixir         inoremap fn<Tab> fn<space><space><Esc>maa-><space>end<Esc>F>a<space>
-autocmd FileType elixir         inoremap fn<CR> fn<space><space><Esc>maa-><CR><Esc>mmi<CR>end<Esc>`mi<Tab><Tab>
-autocmd FileType elixir         inoremap def<Tab> def<space><space><Esc>mni<space>do<CR><Esc>mmi<CR>end<Esc>`ni
-autocmd FileType elixir         inoremap defp<Tab> defp<space><space><Esc>mni<space>do<CR><Esc>mmi<CR>end<Esc>`ni
-autocmd FileType elixir         inoremap defm<Tab> defmodule<space><space><Esc>mni<space>do<CR><Esc>mmi<CR>end<Esc>`ni
-autocmd FileType elixir         inoremap doc<Tab> @doc<space>"""<CR><Esc>mdi<CR>"""<Esc>`di
-autocmd FileType elixir         inoremap mdoc<Tab> @moduledoc<space>"""<CR><Esc>mdi<CR>"""<Esc>`di<Tab>
-autocmd FileType elixir         inoremap des<Tab> describe<space>""<Esc>mmA<space>do<CR><CR>end<Esc>`mi
-autocmd FileType elixir         inoremap te<Tab> test<space>""<Esc>mmA<space>do<CR><CR>end<Esc>`mi
+augroup elixir_shortcuts
+  autocmd!
+  autocmd FileType elixir         vnoremap amp :<C-U>silent! normal! va{oh<CR>
+  autocmd FileType elixir         omap amp :normal Vamp<CR>
+  autocmd FileType elixir         vnoremap ap :<C-U>execute "normal! /end$\rmx?def\r:nohls\rv\r`xe"<CR>
+  autocmd FileType elixir         omap ap :normal Vap<CR>
+  autocmd FileType elixir         iabbrev fn fn<space><Esc>mma<Esc>maa-><space>end<Esc>F>a
+  autocmd FileType elixir         iabbrev defp defp<space><Esc>mmi<space>do<CR><CR>end<Esc>`mi
+  autocmd FileType elixir         iabbrev def def<space><Esc>mmi<space>do<CR><CR>end<Esc>`mi
+  autocmd FileType elixir         iabbrev defm defmodule<space><Esc>mni<space>do<CR><Esc>mmi<CR>end<Esc>`ni
+  autocmd FileType elixir         iabbrev doc @doc<space>"""<CR>"""<Esc>O<c-r>=Eatchar('\s')<CR>
+  autocmd FileType elixir         iabbrev mdoc @moduledoc<space>"""<CR>"""<Esc>O<c-r>=Eatchar('\s')<CR>
+  autocmd FileType elixir         iabbrev des describe<space>""<Esc>mmA<space>do<CR><Esc>`mi<c-r>=Eatchar('\s')<CR>
+  autocmd FileType elixir         iabbrev te test<space>""<Esc>mmA<space>do<CR><Esc>`mi<c-r>=Eatchar('\s')<CR>
+augroup END
+
+" JS + React shortcuts
+augroup js_shortcuts
+  autocmd!
+  autocmd FileType javascript,jsx inoremap im<Tab> import<space><space><Esc>mmi<space>from<space>""<Esc>i
+  autocmd FileType javascript,jsx inoremap fu<Tab> function<space>(<Esc>maa)<space>{<CR><Tab><Esc>mmi<CR>}<Esc>`ai
+  autocmd FileType javascript,jsx inoremap if<Tab> if<space>()<Esc>maa<space>{<CR><Tab><Esc>mmi<CR>}<Esc>`ai
+  autocmd FileType javascript,jsx inoremap ife<Tab> if<space>()<Esc>maa<space>{<CR><Tab><Esc>mmi<CR>}<space>else<space>{<CR><Tab><Esc>mei<CR>}<Esc>`ai
+  autocmd FileType javascript,jsx inoremap try<Tab> try<space>{<CR><Tab><Esc>mmi<CR>}<space>catch<space>(e)<space>{<CR><Tab><Esc>mci<CR>}<Esc>`mi
+  autocmd FileType javascript,jsx inoremap =><Tab> ()<Esc>mma<space>=><space>
+  autocmd FileType javascript,jsx inoremap ex<Tab> export<space>default<space>
+  autocmd FileType javascript,jsx inoremap us<Tab> const<space>[]<Esc>mma<space>=<space>useState()<Esc>i
+  autocmd FileType javascript,jsx inoremap ue<Tab> useEffect(()<space>=><space>{<CR><Tab><Esc>mmi<CR>},<space>[])<Esc>hi
+augroup END
+
