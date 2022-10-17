@@ -45,7 +45,6 @@ set history=1000
 
 " Show line numbers
 set number
-set relativenumber
 
 " Show row and column numbers
 set ruler
