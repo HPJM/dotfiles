@@ -139,17 +139,22 @@ nnoremap Y y$
 nnoremap oo m`o<Esc>``
 nnoremap OO m`O<Esc>``
 
-" Prev buffer
-nnoremap <leader><space> :<C-u>b#<CR>
+nnoremap <leader><space> :<C-u>write<CR>
+nnoremap <leader>q ZZ
+
+" Clear search highlight from hlsearch
+nnoremap <silent> <leader>l :<C-u>nohlsearch<CR><C-l>
+
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 
 " Easier escape
 inoremap jj <Esc>
 
-" Clear search highlight from hlsearch
-nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
-
 " Copy file path
-nnoremap <leader>c :let @+ = expand("%")<cr>
+nnoremap <leader>y :let @+ = expand("%")<cr>
 
 " Open this file in split window
 nnoremap <leader>ev :split $MYVIMRC<cr>
