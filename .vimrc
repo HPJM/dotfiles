@@ -128,6 +128,9 @@ let mapleader = " "
 " Shorter wait for mappings to apply
 set timeoutlen=500
 
+set foldmethod=syntax
+set foldlevelstart=1
+
 " Make Y behave better
 nnoremap Y y$
 
@@ -225,4 +228,3 @@ augroup js_shortcuts
   autocmd FileType javascript,jsx inoremap us<Tab> const<space>[]<Esc>mma<space>=<space>useState()<Esc>i
   autocmd FileType javascript,jsx inoremap ue<Tab> useEffect(()<space>=><space>{<CR><Tab><Esc>mmi<CR>},<space>[])<Esc>hi
 augroup END
-
