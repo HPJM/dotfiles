@@ -117,9 +117,6 @@ command! -bang -nargs=* Rg
 " Use ripgrep for file finding
 let $FZF_DEFAULT_COMMAND = 'rg --files'
 
-" Expand current dir
-cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
-
 " Use new RE engine
 set re=0
 
@@ -132,6 +129,14 @@ set timeoutlen=500
 set foldmethod=syntax
 set foldlevelstart=1
 
+" Expand current dir
+cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<cr>
+map <leader>ew :e %%
+map <leader>ehs :sp %%
+map <leader>evs :vsp %%
+map <leader>et :tabe %%
+map <leader>pbs :execute "rightbelow vsplit " . bufname("#")<cr>
+
 " Make Y behave better
 nnoremap Y y$
 
@@ -140,6 +145,7 @@ nnoremap oo m`o<Esc>``
 nnoremap OO m`O<Esc>``
 
 nnoremap <leader><space> :<C-u>write<CR>
+cnoremap w!! w !sudo tee > /dev/null %
 nnoremap <leader>q ZZ
 
 " Clear search highlight from hlsearch
@@ -157,7 +163,7 @@ inoremap jj <Esc>
 nnoremap <leader>y :let @+ = expand("%")<cr>
 
 " Open this file in split window
-nnoremap <leader>ev :split $MYVIMRC<cr>
+nnoremap <leader>erc :split $MYVIMRC<cr>
 
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
