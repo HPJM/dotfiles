@@ -117,14 +117,19 @@ let $FZF_DEFAULT_COMMAND = 'rg --files'
 " Use new RE engine
 set re=0
 
-" Re-map leader to space
-let mapleader = " "
-
 " Shorter wait for mappings to apply
 set timeoutlen=500
 
 set foldmethod=syntax
 set foldlevelstart=1
+
+" CUSTOM MAPPINGS
+
+" Re-map leader to space
+let mapleader = " "
+
+nnoremap <leader>n nzz
+nnoremap <leader>N Nzz
 
 " Expand current dir
 cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<cr>
