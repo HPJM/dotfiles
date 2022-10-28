@@ -100,9 +100,6 @@ let g:netrw_altv = 1
 " Needed for italics
 let &t_ZH="\e[3m"
 let &t_ZR="\e[23m"
-
-colorscheme sonokai
-
 " Open FZF file finder
 nnoremap <silent> <C-p> :FZF -m<CR>
 
@@ -147,6 +144,9 @@ nnoremap OO m`O<Esc>``
 nnoremap <leader><space> :<C-u>write<CR>
 cnoremap w!! w !sudo tee > /dev/null %
 nnoremap <leader>q ZZ
+
+" Use very magic by default
+nnoremap / /\v
 
 " Clear search highlight from hlsearch
 nnoremap <silent> <leader>l :<C-u>nohlsearch<CR><C-l>
@@ -210,6 +210,20 @@ func Eatchar(pat)
    return (c =~ a:pat) ? '' : c
 endfunc
 
+" Show trailing whitespace
+"
+highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
+match ExtraWhitespace /\s\+$/
+
+augroup whitespace
+  autocmd!
+  autocmd ColorScheme * highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
+  autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+  autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+  autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+  autocmd BufWinLeave * call clearmatches()
+augroup END
+
 " Elixir shortcuts
 augroup elixir_shortcuts
   autocmd!
@@ -240,3 +254,5 @@ augroup js_shortcuts
   autocmd FileType javascript,jsx inoremap us<Tab> const<space>[]<Esc>mma<space>=<space>useState()<Esc>i
   autocmd FileType javascript,jsx inoremap ue<Tab> useEffect(()<space>=><space>{<CR><Tab><Esc>mmi<CR>},<space>[])<Esc>hi
 augroup END
+
+colorscheme sonokai
