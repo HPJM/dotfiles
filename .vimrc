@@ -235,8 +235,6 @@ augroup elixir_shortcuts
   autocmd!
   autocmd FileType elixir         vnoremap amp :<C-U>silent! normal! va{oh<CR>
   autocmd FileType elixir         omap amp :normal Vamp<CR>
-  autocmd FileType elixir         vnoremap ap :<C-U>execute "normal! /end$\rmx?\\v\(def\|test\|describe\)\r:nohls\rv\r`xe"<CR>
-  autocmd FileType elixir         omap ap :normal Vap<CR>
   autocmd FileType elixir         inoreabbrev fn fn<space><Esc>mma<Esc>maa-><space>end<Esc>F>a
   autocmd FileType elixir         inoreabbrev defp defp<space><Esc>mmi<space>do<CR><CR>end<Esc>`mi
   autocmd FileType elixir         inoreabbrev def def<space><Esc>mmi<space>do<CR><CR>end<Esc>`mi
