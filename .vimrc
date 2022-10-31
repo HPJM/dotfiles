@@ -128,8 +128,8 @@ set foldlevelstart=1
 " Re-map leader to space
 let mapleader = " "
 
-nnoremap <leader>n nzz
-nnoremap <leader>N Nzz
+nnoremap n nzz
+nnoremap N Nzz
 
 " Expand current dir
 cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<cr>
@@ -137,6 +137,7 @@ map <leader>ew :e %%
 map <leader>ehs :sp %%
 map <leader>evs :vsp %%
 map <leader>et :tabe %%
+map <leader>cd :lcd %%
 map <leader>pbs :execute "rightbelow vsplit " . bufname("#")<cr>
 
 " Make Y behave better
