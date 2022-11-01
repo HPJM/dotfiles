@@ -1,3 +1,7 @@
+"""""""""""
+" PLUGINS "
+"""""""""""
+
 " Activate built-in plugins
 set nocompatible
 
@@ -5,22 +9,25 @@ set nocompatible
 filetype plugin indent on
 
 call plug#begin()
-Plug 'elixir-editors/vim-elixir'
-Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-unimpaired'
-Plug 'sainnhe/sonokai'
-Plug '~/.fzf'
-Plug 'junegunn/fzf.vim'
-Plug 'yuezk/vim-js'
+  Plug 'elixir-editors/vim-elixir'
+  Plug 'junegunn/fzf.vim'
+  Plug 'sainnhe/sonokai'
+  Plug 'tpope/vim-commentary'
+  Plug 'tpope/vim-endwise'
+  Plug 'tpope/vim-surround'
+  Plug 'tpope/vim-unimpaired'
+  Plug 'yuezk/vim-js'
+  Plug '~/.fzf'
 call plug#end()
 
-" Enables syntax
-syntax on
+syntax enable
 
 " Enhances functionality of tag matching
 runtime macros/matchit.vim
+
+""""""""""""
+" SETTINGS "
+""""""""""""
 
 " Show matches when tab completing
 set wildmenu
@@ -40,6 +47,9 @@ set shiftwidth=2
 
 " Smarter indentation
 set autoindent
+
+" Normal backspace behaviour
+set backspace=indent,eol,start
 
 " More history entries
 set history=1000
@@ -68,12 +78,6 @@ set hlsearch
 " Find search as you type
 set incsearch
 
-" Disable automatic .swp files
-set noswapfile
-
-" Normal backspace behaviour
-set backspace=indent,eol,start
-
 " Search recursively into subfolders
 set path+=**
 
@@ -82,8 +86,21 @@ set wildignore+=*/deps/*
 set wildignore+=*/node_modules/*
 set wildignore+=*/_build/*
 
+" Disable automatic .swp files
+set noswapfile
+
 " Allow hidden buffers
 set hidden
+
+" Shorter wait for mappings to apply
+set timeoutlen=500
+
+set foldmethod=syntax
+set foldlevelstart=1
+
+"""""""""
+" NETRW "
+"""""""""
 
 " Disable banner
 let g:netrw_banner = 0
@@ -97,11 +114,9 @@ let g:netrw_liststyle = 3
 " Open splits to the right
 let g:netrw_altv = 1
 
-" Needed for italics
-let &t_ZH="\e[3m"
-let &t_ZR="\e[23m"
-" Open FZF file finder
-nnoremap <silent> <C-p> :FZF -m<CR>
+"""""""
+" FZF "
+"""""""
 
 " Create/redefine custom command Rg
 " Pass 0+ args to rg
@@ -114,33 +129,41 @@ command! -bang -nargs=* Rg
 " Use ripgrep for file finding
 let $FZF_DEFAULT_COMMAND = 'rg --files'
 
-" Use new RE engine
-set re=0
-
-" Shorter wait for mappings to apply
-set timeoutlen=500
-
-set foldmethod=syntax
-set foldlevelstart=1
-
-" CUSTOM MAPPINGS
+""""""""""""
+" MAPPINGS "
+""""""""""""
 
 " Re-map leader to space
 let mapleader = " "
 
+inoremap jj <Esc>
+
+" Open FZF file finder
+nnoremap <silent> <C-p> :FZF -m<CR>
+
+" Re-center screen after jumps"
 nnoremap n nzz
 nnoremap N Nzz
+nnoremap * *zz
 
 " Expand current dir
 cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<cr>
+
 map <leader>ew :e %%
-map <leader>ehs :sp %%
-map <leader>evs :vsp %%
 map <leader>et :tabe %%
 map <leader>cd :lcd %%
 map <leader>pbs :execute "rightbelow vsplit " . bufname("#")<cr>
+cmap ehs rightbelow sp %%
+cmap evs vsp %%
 
-" Make Y behave better
+" Copy file path
+nnoremap <leader>y :let @+ = expand("%")<cr>
+
+" Open this file in split window
+nnoremap <leader>ev :split $MYVIMRC<cr>
+
+nnoremap <leader>sv :source $MYVIMRC<cr>
+
 nnoremap Y y$
 
 " Insert blank lines
@@ -148,13 +171,15 @@ nnoremap oo m`o<Esc>``
 nnoremap OO m`O<Esc>``
 
 nnoremap <leader><space> :<C-u>write<CR>
-cnoremap w!! w !sudo tee > /dev/null %
 nnoremap <leader>q ZZ
+
+" Sudo write
+cnoremap w!! w !sudo tee > /dev/null %
 
 " Use very magic by default
 nnoremap / /\v
 
-" Clear search highlight from hlsearch
+" Clear search highlight
 nnoremap <silent> <leader>l :<C-u>nohlsearch<CR><C-l>
 
 nnoremap <C-h> <C-w>h
@@ -162,54 +187,7 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-" Easier escape
-inoremap jj <Esc>
-
-" Copy file path
-nnoremap <leader>y :let @+ = expand("%")<cr>
-
-" Open this file in split window
-nnoremap <leader>erc :split $MYVIMRC<cr>
-
-nnoremap <leader>sv :source $MYVIMRC<cr>
-
-" Close pairs: but allow override with backspace and skip over closing pair with tab
-inoremap "<backspace> "
-inoremap " ""<left>
-inoremap "<Tab> ""
-
-inoremap '<backspace> '
-inoremap ' ''<left>
-inoremap '<Tab> ''
-
-inoremap `<backspace> `
-inoremap ` ``<left>
-inoremap `<Tab> ``
-
-inoremap (<backspace> (
-inoremap ( ()<left>
-inoremap (<Tab> ()
-
-inoremap [<backspace> [
-inoremap [ []<left>
-inoremap [<Tab> []
-
-inoremap {<backspace> {
-inoremap { {}<left>
-inoremap {<Tab> {}
-
-" Don't auto-close as useful for HTML etc
-inoremap <<Tab> <>
-
-inoremap (<CR> (<CR>)<Esc>O
-inoremap [<CR> [<CR>]<Esc>O
-inoremap {<CR> {<CR>}<Esc>O
-inoremap {;<CR> {<CR>};<Esc>O
-
-" Auto-insert closing JSX/html tag and put cursor in between
-inoremap <expr> ><Tab> (getline('.') =~ '=' ? '><Esc>mmF<l"tyt<space>A</<C-r>t><Esc>F>a' : '><Esc>mmF<l"tyt>A</<C-r>t><Esc>F>a')
-
-inoremap <expr> ><CR> (getline('.') =~ '=' ? '><Esc>mmF<l"tyt<space>o</<C-r>t><Esc>O' : '><Esc>mmF<l"tyt>o</<C-r>t><Esc>O')
+cnoremap <C-U> <C-E><C-U>
 
 func Eatchar(pat)
    let c = nr2char(getchar(0))
@@ -217,7 +195,7 @@ func Eatchar(pat)
 endfunc
 
 " Show trailing whitespace
-"
+
 highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
 match ExtraWhitespace /\s\+$/
 
@@ -228,7 +206,7 @@ augroup whitespace
   autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
   autocmd InsertLeave * match ExtraWhitespace /\s\+$/
   autocmd BufWinLeave * call clearmatches()
-augroup END
+augroup end
 
 " Elixir shortcuts
 augroup elixir_shortcuts
@@ -243,7 +221,7 @@ augroup elixir_shortcuts
   autocmd FileType elixir         inoreabbrev mdoc @moduledoc<space>"""<CR>"""<Esc>O<c-r>=Eatchar('\s')<CR>
   autocmd FileType elixir         inoreabbrev des describe<space>""<Esc>mmA<space>do<CR><CR>end<Esc>`mi<c-r>=Eatchar('\s')<CR>
   autocmd FileType elixir         inoreabbrev te test<space>""<Esc>mmA<space>do<CR><CR>end<Esc>`mi<c-r>=Eatchar('\s')<CR>
-augroup END
+augroup end
 
 " JS + React shortcuts
 augroup js_shortcuts
@@ -257,6 +235,14 @@ augroup js_shortcuts
   autocmd FileType javascript,jsx inoremap ex<Tab> export<space>default<space>
   autocmd FileType javascript,jsx inoremap us<Tab> const<space>[]<Esc>mma<space>=<space>useState()<Esc>i
   autocmd FileType javascript,jsx inoremap ue<Tab> useEffect(()<space>=><space>{<CR><Tab><Esc>mmi<CR>},<space>[])<Esc>hi
-augroup END
+augroup end
+
+"""""""""""
+" COLOURS "
+"""""""""""
 
 colorscheme sonokai
+
+" Needed for italics
+let &t_ZH="\e[3m"
+let &t_ZR="\e[23m"
