@@ -96,7 +96,7 @@ set hidden
 set timeoutlen=500
 
 set foldmethod=syntax
-set foldlevelstart=1
+set foldlevelstart=99
 
 """""""""
 " NETRW "
