@@ -141,7 +141,7 @@ inoremap jj <Esc>
 " Open FZF file finder
 nnoremap <silent> <C-p> :FZF -m<CR>
 
-" Re-center screen after jumps"
+" Re-center screen after jumps
 nnoremap n nzz
 nnoremap N Nzz
 nnoremap * *zz
@@ -153,16 +153,12 @@ map <leader>ew :e %%
 map <leader>et :tabe %%
 map <leader>cd :lcd %%
 map <leader>pbs :execute "rightbelow vsplit " . bufname("#")<cr>
-cmap ehs rightbelow sp %%
-cmap evs vsp %%
+map <leader>eh :rightbelow sp %%
+nnoremap <leader>ev :split $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
 
 " Copy file path
 nnoremap <leader>y :let @+ = expand("%")<cr>
-
-" Open this file in split window
-nnoremap <leader>ev :split $MYVIMRC<cr>
-
-nnoremap <leader>sv :source $MYVIMRC<cr>
 
 nnoremap Y y$
 
@@ -180,12 +176,10 @@ cnoremap w!! w !sudo tee > /dev/null %
 nnoremap / /\v
 
 " Clear search highlight
-nnoremap <silent> <leader>l :<C-u>nohlsearch<CR><C-l>
+nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
 
-nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
 
 cnoremap <C-U> <C-E><C-U>
 
