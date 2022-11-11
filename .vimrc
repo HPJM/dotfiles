@@ -11,6 +11,7 @@ filetype plugin indent on
 call plug#begin()
   Plug 'elixir-editors/vim-elixir'
   Plug 'junegunn/fzf.vim'
+  Plug 'nelstrom/vim-visual-star-search'
   Plug 'sainnhe/sonokai'
   Plug 'tpope/vim-commentary'
   Plug 'tpope/vim-endwise'
