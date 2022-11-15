@@ -13,6 +13,7 @@ call plug#begin()
   Plug 'junegunn/fzf.vim'
   Plug 'nelstrom/vim-visual-star-search'
   Plug 'sainnhe/sonokai'
+  Plug 'tpope/vim-abolish'
   Plug 'tpope/vim-commentary'
   Plug 'tpope/vim-endwise'
   Plug 'tpope/vim-surround'
@@ -183,6 +184,10 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 
 cnoremap <C-U> <C-E><C-U>
+
+" Make repeating substitutions easier
+nnoremap & :&&<CR>
+xnoremap & :&&<CR>
 
 func Eatchar(pat)
    let c = nr2char(getchar(0))
