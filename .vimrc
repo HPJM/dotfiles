@@ -31,6 +31,9 @@ runtime macros/matchit.vim
 " SETTINGS "
 """"""""""""
 
+" Avoid crashes on opening TS files
+set re=2
+
 " Show matches when tab completing
 set wildmenu
 
@@ -213,10 +216,12 @@ augroup elixir_shortcuts
   autocmd!
   autocmd FileType elixir         vnoremap amp :<C-U>silent! normal! va{oh<CR>
   autocmd FileType elixir         omap amp :normal Vamp<CR>
-  autocmd FileType elixir         inoreabbrev fn fn<space><Esc>mma<Esc>maa-><space>end<Esc>F>a
-  autocmd FileType elixir         inoreabbrev defp defp<space><Esc>mmi<space>do<CR><CR>end<Esc>`mi
-  autocmd FileType elixir         inoreabbrev def def<space><Esc>mmi<space>do<CR><CR>end<Esc>`mi
-  autocmd FileType elixir         inoreabbrev defm defmodule<space><Esc>mni<space>do<CR><Esc>mmi<CR>end<Esc>`ni
+  autocmd FileType elixir         vnoremap al :<C-U>execute "normal! /end$\rmx?\\vfn\r:nohls\rv\r`xe"<CR>
+  autocmd FileType elixir         omap al :normal Val<CR>
+  autocmd FileType elixir         inoreabbrev fn fn<space><Esc>maa-><CR><space><CR>end<Esc>`ai
+  autocmd FileType elixir         inoreabbrev def def<space><Esc>mai()<space>do<CR><Space><CR>end<Esc>`ai
+  autocmd FileType elixir         inoreabbrev defp defp<space><Esc>mai()<space>do<CR><Space><CR>end<Esc>`ai
+  autocmd FileType elixir         inoreabbrev defm defmodule<space><Esc>mni<space>do<CR>end<Esc>`ni
   autocmd FileType elixir         inoreabbrev doc @doc<space>"""<CR>"""<Esc>O<c-r>=Eatchar('\s')<CR>
   autocmd FileType elixir         inoreabbrev mdoc @moduledoc<space>"""<CR>"""<Esc>O<c-r>=Eatchar('\s')<CR>
   autocmd FileType elixir         inoreabbrev des describe<space>""<Esc>mmA<space>do<CR><CR>end<Esc>`mi<c-r>=Eatchar('\s')<CR>
