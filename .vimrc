@@ -216,16 +216,16 @@ augroup elixir_shortcuts
   autocmd!
   autocmd FileType elixir         vnoremap amp :<C-U>silent! normal! va{oh<CR>
   autocmd FileType elixir         omap amp :normal Vamp<CR>
-  autocmd FileType elixir         vnoremap al :<C-U>execute "normal! /end$\rmx?\\vfn\r:nohls\rv\r`xe"<CR>
+  autocmd FileType elixir         vnoremap al :<C-U>execute "normal! /end\rmx?\\vfn\r:nohls\rv\r`xe"<CR>
   autocmd FileType elixir         omap al :normal Val<CR>
   autocmd FileType elixir         inoreabbrev fn fn<space><Esc>maa-><CR><space><CR>end<Esc>`ai
-  autocmd FileType elixir         inoreabbrev def def<space><Esc>mai()<space>do<CR><Space><CR>end<Esc>`ai
-  autocmd FileType elixir         inoreabbrev defp defp<space><Esc>mai()<space>do<CR><Space><CR>end<Esc>`ai
+  autocmd FileType elixir         inoreabbrev def def<space><Esc>mai()<space>do<CR>end<Esc>`ai
+  autocmd FileType elixir         inoreabbrev defp defp<space><Esc>mai()<space>do<CR>end<Esc>`ai
   autocmd FileType elixir         inoreabbrev defm defmodule<space><Esc>mni<space>do<CR>end<Esc>`ni
   autocmd FileType elixir         inoreabbrev doc @doc<space>"""<CR>"""<Esc>O<c-r>=Eatchar('\s')<CR>
   autocmd FileType elixir         inoreabbrev mdoc @moduledoc<space>"""<CR>"""<Esc>O<c-r>=Eatchar('\s')<CR>
-  autocmd FileType elixir         inoreabbrev des describe<space>""<Esc>mmA<space>do<CR><CR>end<Esc>`mi<c-r>=Eatchar('\s')<CR>
-  autocmd FileType elixir         inoreabbrev te test<space>""<Esc>mmA<space>do<CR><CR>end<Esc>`mi<c-r>=Eatchar('\s')<CR>
+  autocmd FileType elixir         inoreabbrev des describe<space>""<Esc>mmA<space>do<CR>end<Esc>`mi<c-r>=Eatchar('\s')<CR>
+  autocmd FileType elixir         inoreabbrev te test<space>""<Esc>mmA<space>do<CR>end<Esc>`mi<c-r>=Eatchar('\s')<CR>
 augroup end
 
 " JS + React shortcuts
